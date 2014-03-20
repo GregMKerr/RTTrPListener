@@ -16,6 +16,9 @@
 *.opensdf
 *.sdf
 
+*.log
+*.filters
+
 Debug/
 
 RTTrPListener/Debug/

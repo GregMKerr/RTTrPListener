@@ -4,18 +4,7 @@
 
 using namespace boost::asio::ip;
 
-
-int main(int argc, char* argv[])
-{
-	boost::asio::io_service service;
-	Receiver rec = Receiver(service);
-
-	service.run();
-
-	while(1){}
-
-	return 0;
-}
+class Receiver;
 
 class Receiver{
 public:
@@ -24,7 +13,7 @@ public:
 	{
 
 		boost::asio::ip::address ipAddr = boost::asio::ip::address_v4::any();
-		boost::asio::ip::udp::endpoint listen_endpoint(ipAddr, 23001);
+		boost::asio::ip::udp::endpoint listen_endpoint(ipAddr, 24002);
 
 		m_socket.open(listen_endpoint.protocol());
 		m_socket.bind(listen_endpoint);
@@ -53,3 +42,16 @@ private:
 	udp::endpoint m_sender_endpoint;
 	boost::array<char, 100> m_data;
 };
+
+
+int main(int argc, char* argv[])
+{
+	boost::asio::io_service service;
+	Receiver rec(service);
+
+	service.run();
+
+	while(1){}
+
+	return 0;
+}

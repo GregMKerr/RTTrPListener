@@ -16,4 +16,6 @@
 *.opensdf
 *.sdf
 
-*/debug/
+Debug/
+
+RTTrPListener/Debug/

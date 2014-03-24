@@ -3,21 +3,21 @@
 #include <boost\bind.hpp>
 #include <boost\array.hpp>
 
-using namespace boost::asio::ip;
+#include "blacktrax_third_party_protocol.h"
 
-const int multicast_port = 24002;
+using namespace boost::asio::ip;
 
 class Receiver{
 public:
-	//io_service, listen_address, multicast_address
-	Receiver(boost::asio::io_service& io_service, const address& listen_address, const address& multicast_address)
-		: socket(io_service), listen_address(listen_address), multicast_address(multicast_address)
+	Receiver(const int& multicast_port, const std::string& multicast_address, const std::string& listen_address = "0.0.0.0") : 
+		multicast_port(multicast_port), 
+		multicast_address(address::from_string(multicast_address)), 
+		listen_address(address::from_string(listen_address))
 	{
 	}
 
 	int init(){
 		try{
-
 			udp::endpoint listen_endpoint(listen_address, multicast_port);
 			socket.open(listen_endpoint.protocol());
 			socket.set_option(udp::socket::reuse_address(true));
@@ -41,7 +41,14 @@ public:
 	void handle_receive_from(const boost::system::error_code& error,
 	  size_t bytes_recvd)
 	{
-		std::cout << "receive" << bytes_recvd << std::endl;
+		std::cout << "\n\n--------------------------\n\n" << std::endl;
+
+		std::cout << "received " << bytes_recvd << "bytes.\n" << std::endl;
+
+		RTTRPHeader* header = parseHeader(reinterpret_cast<const unsigned char*>(data.c_array()));
+		if (header){
+			Print(header);
+		}
 
 		socket.async_receive_from(
 			boost::asio::buffer(data), sender_endpoint,
@@ -51,23 +58,12 @@ public:
 	}
 	
 private:
+	boost::asio::io_service service;
 	udp::socket socket;
 	udp::endpoint sender_endpoint;
 	const address& listen_address;
 	const address& multicast_address;
 	enum { max_length = 1024};
 	boost::array<char, max_length> data;
+	const int multicast_port = 24002;
 };
-
-
-int main(int argc, char* argv[])
-{
-	boost::asio::io_service service;
-	Receiver rec(service, address::from_string("0.0.0.0"), address::from_string("238.210.10.1"));
-	if (rec.init() != 0) { return 1; }
-	service.run();
-
-	while(1){}
-
-	return 0;
-}

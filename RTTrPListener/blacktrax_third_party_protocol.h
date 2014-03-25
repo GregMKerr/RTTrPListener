@@ -9,8 +9,8 @@
 typedef unsigned char uint8_t;
 
 struct ModuleHeader {
-    uint8_t type;               // Type of module
-    uint16_t size;              // size of module    
+	uint8_t type;               // Type of module
+	uint16_t size;              // size of module    
 };
 
 struct RTTRPHeader {
@@ -24,16 +24,16 @@ struct RTTRPHeader {
 };
 
 struct TrackableModule {
-    uint8_t type;
-    uint16_t size; 
+	uint8_t type;
+	uint16_t size; 
 	uint8_t nameLength;
 	char* name;
 	uint8_t numberModules;
 };
 
 struct CentroidPositionModule {
-    uint8_t type;
-    uint16_t size;
+	uint8_t type;
+	uint16_t size;
 	uint16_t latency;
 	double x;
 	double y;
@@ -41,8 +41,8 @@ struct CentroidPositionModule {
 };
 
 struct EulerOrientation {
-    uint8_t type;
-    uint16_t size;
+	uint8_t type;
+	uint16_t size;
 	uint16_t latency;
 	uint16_t order;
 	double r1;
@@ -51,8 +51,8 @@ struct EulerOrientation {
 };
 
 struct QuaternionOrientation {
-    uint8_t type;
-    uint16_t size;
+	uint8_t type;
+	uint16_t size;
 	uint16_t latency;
 	double Qx;
 	double Qy;
@@ -61,8 +61,8 @@ struct QuaternionOrientation {
 };
 
 struct LedPositionModule {
-    uint8_t type;
-    uint16_t size;
+	uint8_t type;
+	uint16_t size;
 	uint16_t latency;
 	double x;
 	double y;
@@ -71,8 +71,8 @@ struct LedPositionModule {
 };
 
 struct FixtureModule {
-    uint8_t type;
-    uint16_t size;
+	uint8_t type;
+	uint16_t size;
 	uint32_t spotNumber;
 	uint8_t inverseTilt;
 	uint8_t inversePan;

@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include <cstring>
-#include <cstdio>
 
 typedef unsigned char uint8_t;
 

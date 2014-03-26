@@ -3,8 +3,8 @@
 #include <boost\bind.hpp>
 #include <boost\array.hpp>
 
+#include "RTTrPListener.h"
 #include "blacktrax_third_party_protocol.h"
-//#include "RTTrPListener.h"
 
 using namespace boost::asio::ip;
 
@@ -12,7 +12,7 @@ namespace RTTrPListener
 {
 	class Listener{
 	public:
-		Listener(const int multicast_port, const std::string multicast_address, const std::string listen_address = "0.0.0.0") :
+		Listener(const int multicast_port, const std::string multicast_address, const std::string listen_address) :
 			multicast_port(multicast_port),
 			multicast_address(address::from_string(multicast_address)),
 			listen_address(address::from_string(listen_address)),
@@ -68,5 +68,18 @@ namespace RTTrPListener
 		const int multicast_port = 24002;
 	};
 
-	
+	int Interface::Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address)
+	{
+
+	}
+
+	int Interface::Start()
+	{
+
+	}
+
+	int Interface::Stop()
+	{
+
+	}
 }

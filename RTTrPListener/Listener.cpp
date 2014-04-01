@@ -3,7 +3,7 @@
 #include <boost\bind.hpp>
 #include <boost\array.hpp>
 
-#include "RTTrPListener.h"
+#include "Interface.h"
 #include "blacktrax_third_party_protocol.h"
 
 using namespace boost::asio::ip;

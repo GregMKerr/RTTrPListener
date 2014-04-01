@@ -10,7 +10,7 @@ using namespace boost::asio::ip;
 
 namespace RTTrPListener
 {
-	class Listener{
+	class Listener : Interface{
 	public:
 		Listener(const int multicast_port, const std::string multicast_address, const std::string listen_address) :
 			multicast_port(multicast_port),
@@ -20,7 +20,7 @@ namespace RTTrPListener
 		{
 		}
 
-		int init(){
+		int Init(){
 			try{
 				udp::endpoint listen_endpoint(listen_address, multicast_port);
 				socket.open(listen_endpoint.protocol());
@@ -42,6 +42,9 @@ namespace RTTrPListener
 			return 0;
 		}
 
+		
+
+	private:
 		void handle_receive_from(const boost::system::error_code& error, size_t bytes_recvd)
 		{
 
@@ -57,7 +60,6 @@ namespace RTTrPListener
 				boost::asio::placeholders::bytes_transferred));
 		}
 
-	private:
 		boost::asio::io_service service;
 		udp::socket socket;
 		udp::endpoint sender_endpoint;
@@ -67,19 +69,4 @@ namespace RTTrPListener
 		boost::array<char, max_length> data;
 		const int multicast_port = 24002;
 	};
-
-	int Interface::Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address)
-	{
-
-	}
-
-	int Interface::Start()
-	{
-
-	}
-
-	int Interface::Stop()
-	{
-
-	}
 }

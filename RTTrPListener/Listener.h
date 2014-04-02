@@ -3,7 +3,7 @@
 #include <boost\bind.hpp>
 #include <boost\array.hpp>
 
-#include "IListener.h"
+#include "RTTrPListener.h"
 
 using namespace boost::asio::ip;
 
@@ -11,7 +11,7 @@ namespace RTTrPListener
 {
 	class Listener : IListener{
 	public:
-		Listener() : socket(this->service)
+		Listener() : m_socket(this->m_service)
 		{
 		}
 
@@ -21,17 +21,19 @@ namespace RTTrPListener
 
 		int Stop();
 
+		int Release();
+
 		void handle_receive_from(const boost::system::error_code& error, size_t bytes_recvd);
 
 	private:
-		boost::asio::io_service service;
-		udp::socket socket;
-		udp::endpoint sender_endpoint;
-		const address listen_address;
-		const address multicast_address;
-		const int multicast_port;
+		boost::asio::io_service m_service;
+		udp::socket m_socket;
+		udp::endpoint m_sender_endpoint;
+		address m_listen_address;
+		address m_multicast_address;
+		int m_multicast_port;
 		enum { max_length = 1024 };
-		boost::array<char, max_length> data;
-		callback_function callbackfunc;
+		boost::array<char, max_length> m_data;
+		callback_function m_callbackfunc;
 	};
 }

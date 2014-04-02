@@ -9,22 +9,21 @@
 #define RTTRPLISTENER_API __declspec(dllimport)
 #endif
 
-typedef void(*callback_function)(RTTRPHeader);
+typedef void(*callback_function)(RTTRPHeader*);
 
 namespace RTTrPListener
 {
-	class Interface
+	struct IListener
 	{
-	public:
 		//initialized UDP multicast listener - listen address defaults to 'any'
-		virtual RTTRPLISTENER_API int Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address = "0.0.0.0");
+		virtual int Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address = "0.0.0.0");
 
 		//
-		virtual RTTRPLISTENER_API int Start();
+		virtual int Start();
 
 		//
-		virtual RTTRPLISTENER_API int Stop();
+		virtual int Stop();
 	};
 
-	//extern
+	extern "C" RTTRPLISTENER_API Interface* APIENTRY GetIListener();
 }

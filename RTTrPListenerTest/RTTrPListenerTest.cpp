@@ -8,7 +8,7 @@ typedef std::shared_ptr<RTTrPListener::IListener> IListenerPtr;
 
 int main(int argc, char* argv[])
 {
-	IListenerPtr listenerPtr(RTTrPListener::GetIListener(), std::mem_fn(&RTTrPListener::IListener::Release));
+	IListenerPtr listenerPtr(::GetIListener(), std::mem_fn(&RTTrPListener::IListener::Release));
 
 	if(listenerPtr)
 	{

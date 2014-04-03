@@ -18,7 +18,10 @@
 
 *.log
 *.filters
+*.user
 
 Debug/
 
 RTTrPListener/Debug/
+
+/Debug/

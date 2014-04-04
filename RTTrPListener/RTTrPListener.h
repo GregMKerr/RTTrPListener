@@ -11,23 +11,20 @@
 
 typedef void(*callback_function)(RTTRPHeader*);
 
-namespace RTTrPListener
+
+struct IListener
 {
-	struct IListener
-	{
-		//initialized UDP multicast listener - listen address defaults to 'any'
-		virtual int Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address = "0.0.0.0");
+	//initialized UDP multicast listener - listen address defaults to 'any'
+	virtual int Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address = "0.0.0.0");
 
-		//
-		virtual int Start();
+	//
+	virtual int Start();
 
-		//
-		virtual int Stop();
+	//
+	virtual int Stop();
 
-		//
-		virtual int Release();
-	};
+	//
+	virtual int Release();
+};
 
-}
-
-extern "C" RTTRPLISTENER_API RTTrPListener::IListener* APIENTRY GetIListener();
+extern "C" RTTRPLISTENER_API IListener* APIENTRY GetIListener();

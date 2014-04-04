@@ -7,33 +7,31 @@
 
 using namespace boost::asio::ip;
 
-namespace RTTrPListener
-{
-	class Listener : IListener{
-	public:
-		Listener() : m_socket(this->m_service)
-		{
-		}
 
-		int Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address = "0.0.0.0");
+class Listener : IListener{
+public:
+	Listener() : m_socket(this->m_service)
+	{
+	}
 
-		int Start();
+	int Init(const int multicast_port, const std::string multicast_address, callback_function callbackfunc, const std::string listen_address = "0.0.0.0");
 
-		int Stop();
+	int Start();
 
-		int Release();
+	int Stop();
 
-		void handle_receive_from(const boost::system::error_code& error, size_t bytes_recvd);
+	int Release();
 
-	private:
-		boost::asio::io_service m_service;
-		udp::socket m_socket;
-		udp::endpoint m_sender_endpoint;
-		address m_listen_address;
-		address m_multicast_address;
-		int m_multicast_port;
-		enum { max_length = 1024 };
-		boost::array<char, max_length> m_data;
-		callback_function m_callbackfunc;
-	};
-}
+	void handle_receive_from(const boost::system::error_code& error, size_t bytes_recvd);
+
+private:
+	boost::asio::io_service m_service;
+	udp::socket m_socket;
+	udp::endpoint m_sender_endpoint;
+	address m_listen_address;
+	address m_multicast_address;
+	int m_multicast_port;
+	enum { max_length = 1024 };
+	boost::array<char, max_length> m_data;
+	callback_function m_callbackfunc;
+};
